@@ -91,11 +91,6 @@ Widget::Widget(QWidget *parent)
         ui->lineEdit->setText(calc);
     });
 
-    connect(ui->btnEquals,&QPushButton::clicked,this,[this](){
-        QString calc = ui->lineEdit->text();
-        ui->lineEdit->setText(QString::number(this->engine.evaluate(calc).toNumber()));
-    });
-
     connect(ui->btnModulo,&QPushButton::clicked,this,[this](){
         QString calc = ui->lineEdit->text();
         calc = calc + "%";
@@ -112,9 +107,18 @@ Widget::Widget(QWidget *parent)
     connect(ui->btnCE,&QPushButton::clicked,this,[this](){
         ui->lineEdit->setText("");
     });
+
+    connect(ui->btnEquals,SIGNAL(clicked(bool)),this,SLOT(evaluateExpression()));
 }
 
 Widget::~Widget()
 {
     delete ui;
+}
+
+void Widget::evaluateExpression()
+{
+
+    QString calc = ui->lineEdit->text();
+    ui->lineEdit->setText(QString::number(this->engine.evaluate(calc).toNumber()));
 }

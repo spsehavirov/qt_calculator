@@ -20,6 +20,9 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
+public slots:
+    void evaluateExpression();
+
 private:
     Ui::Widget *ui;
 };
